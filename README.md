@@ -43,6 +43,21 @@ Production Atelier est une solution full-stack destinée aux ateliers de confect
 
 ## Architecture
 
+```mermaid
+flowchart LR
+    Browser[Interface React] --> Router[React Router]
+    Router --> API[Client Axios]
+    API --> Express[API REST Node.js / Express]
+    Express --> Auth[Authentification JWT]
+    Express --> MES[Services métier MES]
+    MES --> SQL[(SQL Server)]
+    Express --> Docs[Swagger]
+    MES --> Documents[PDF, Excel, QR et codes-barres]
+```
+
+Cette architecture correspond au code publié dans ce dépôt. Elle ne contient
+pas de composant C#/.NET ou Python.
+
 ```text
 production/
 ├── backend/
@@ -142,6 +157,19 @@ npm run preview       # Prévisualisation du build
 Les principales ressources sont exposées sous `/api` : authentification, employés, opérations, productions, commandes, présences et rapports. Le module MES est disponible sous `/api/mes` avec les ressources de rendement, fiches suiveuses, paniers, traces, alertes et tableaux de bord.
 
 La liste complète et testable des endpoints est disponible dans Swagger après le lancement du backend.
+
+## Captures d’écran
+
+Les captures seront ajoutées dans `docs/screenshots/` sans données réelles de
+l’entreprise :
+
+- `dashboard.png` — indicateurs et graphiques du tableau de bord ;
+- `productions.png` — saisie et suivi des productions ;
+- `traceabilite-paniers.png` — paniers, QR codes et codes-barres ;
+- `rendement-mes.png` — calcul et classement des rendements MES.
+
+Seules des données de démonstration fictives doivent apparaître dans ces
+illustrations.
 
 ## Auteur
 
