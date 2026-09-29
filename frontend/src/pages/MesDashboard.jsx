@@ -14,7 +14,7 @@ const toDateInput = (date = new Date()) => {
 const formatLabel = (value) => {
   if (!value) return '-';
   const raw = String(value).slice(0, 10);
-  const [year, month, day] = raw.split('-');
+  const [, month, day] = raw.split('-');
   return day && month ? `${day}/${month}` : raw;
 };
 
