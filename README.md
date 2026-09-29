@@ -11,6 +11,7 @@
   ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)
   ![SQL Server](https://img.shields.io/badge/SQL_Server-2019%2B-CC2927?logo=microsoftsqlserver&logoColor=white)
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+  [![CI](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml/badge.svg)](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml)
 </div>
 
 ## À propos
@@ -158,6 +159,28 @@ Les principales ressources sont exposées sous `/api` : authentification, employ
 
 La liste complète et testable des endpoints est disponible dans Swagger après le lancement du backend.
 
+## Tests et qualité
+
+```bash
+cd backend && npm run lint && npm test
+cd ../frontend && npm run lint && npm run build
+```
+
+La CI reproduit ces contrôles avec Node.js 20 sur chaque pull request et chaque
+push vers `main`. Les tests backend couvrent les calculs de rendement, de temps
+travaillé, d’écarts et les cas limites numériques du module MES.
+
+## Choix techniques
+
+- Les services MES isolent les calculs et règles de suivi des contrôleurs HTTP,
+  ce qui permet de tester la logique sans démarrer l’API.
+- SQL Server est conservé comme source relationnelle unique pour les données
+  d’atelier et la traçabilité ; les repositories centralisent les requêtes MES.
+- JWT protège une SPA sans session serveur, avec des autorisations vérifiées par
+  rôle dans le middleware.
+- QR codes et codes-barres représentent le même identifiant de panier afin de
+  permettre la lecture par caméra ou scanner sans dupliquer la donnée métier.
+
 ## Captures d’écran
 
 Les captures seront ajoutées dans `docs/screenshots/` sans données réelles de
@@ -170,6 +193,16 @@ l’entreprise :
 
 Seules des données de démonstration fictives doivent apparaître dans ces
 illustrations.
+
+## Limites connues et pistes d’amélioration
+
+- Les tests automatisés ciblent les calculs métier ; les routes HTTP et la
+  persistance SQL nécessitent encore des tests d’intégration.
+- Le frontend ne possède pas encore de tests de composants ou de parcours.
+- Quatre vulnérabilités frontend et six vulnérabilités backend restent liées à
+  des migrations majeures de Vite, React Router, MSSQL et ExcelJS ; elles ne
+  sont pas corrigées automatiquement pour éviter une régression non testée.
+- Le chargement initial du frontend peut être réduit par découpage des routes.
 
 ## Auteur
 

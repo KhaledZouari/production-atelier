@@ -2,7 +2,13 @@
   "name": "production-atelier-frontend",
   "version": "1.0.0",
   "private": true,
-  "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview" },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "axios": "^1.4.0",
     "lucide-react": "^0.263.1",
@@ -14,7 +20,13 @@
     "recharts": "^2.5.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.0"
   }
