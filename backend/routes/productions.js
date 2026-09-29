@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import * as ctrl from '../controllers/productionController.js';
+import { auth } from '../middleware/auth.js';
+import { productionValidators } from '../utils/validators.js';
+const router = Router();
+router.get('/', auth(), ctrl.list);
+router.get('/stats/daily', auth(), ctrl.statsDaily);
+router.get('/:id', auth(), ctrl.getOne);
+router.post('/', auth(['admin','chef_chaine']), productionValidators, ctrl.create);
+router.put('/:id', auth(['admin']), productionValidators, ctrl.update);
+router.delete('/:id', auth(['admin']), ctrl.remove);
+router.post('/:id/validate', auth(['chef_chaine','admin']), ctrl.validateProd);
+export default router;

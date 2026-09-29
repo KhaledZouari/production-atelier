@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import * as ctrl from '../controllers/employeeController.js';
+import { auth } from '../middleware/auth.js';
+const router = Router();
+router.get('/', auth(), ctrl.list);
+router.get('/:id', auth(), ctrl.getOne);
+router.post('/', auth(['admin']), ctrl.create);
+router.put('/:id', auth(['admin']), ctrl.update);
+router.delete('/:id', auth(['admin']), ctrl.remove);
+router.get('/:id/stats', auth(), ctrl.stats);
+export default router;
