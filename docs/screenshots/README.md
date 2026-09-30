@@ -1,8 +1,9 @@
-# Captures d’écran à fournir
+# Screenshots to add
 
-Ajoutez ici des captures utilisant exclusivement des données fictives :
+Add screenshots using fictional or anonymized data only:
 
 - `dashboard.png`
-- `productions.png`
-- `traceabilite-paniers.png`
-- `rendement-mes.png`
+- `production-tracking.png`
+- `traceability.png`
+- `mes-performance.png`
+

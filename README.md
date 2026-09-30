@@ -1,210 +1,82 @@
-<div align="center">
-  <img src="frontend/logo.png" alt="Logo Production Atelier" width="140" />
+# Production Atelier
 
-  # Production Atelier
+A full-stack production management platform for textile workshops. It combines
+operational workflows with a Manufacturing Execution System (MES) layer for
+real-time tracking, performance measurement, and item traceability.
 
-  **Application web de gestion et de pilotage de la production textile**
+## Features
 
-  Suivi des opérations, des employés, des commandes et des performances d'atelier depuis une interface unique.
+- Employee, operation, production, attendance, and order management
+- MES performance metrics and operational dashboards
+- Item tracking through QR codes and barcodes
+- Production documents and Excel/PDF exports
+- Alerts, work-in-progress monitoring, and traceability history
+- Swagger/OpenAPI documentation
 
-  ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
-  ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)
-  ![SQL Server](https://img.shields.io/badge/SQL_Server-2019%2B-CC2927?logo=microsoftsqlserver&logoColor=white)
-  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
-  [![CI](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml/badge.svg)](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml)
-</div>
+## Stack
 
-## À propos
-
-Production Atelier est une solution full-stack destinée aux ateliers de confection. Elle centralise les données de production et fournit une couche MES (*Manufacturing Execution System*) pour suivre l'activité en temps réel, mesurer le rendement et assurer la traçabilité des articles dans l'atelier.
-
-## Fonctionnalités
-
-- Tableau de bord avec indicateurs clés et graphiques de production
-- Authentification JWT et accès selon les rôles (`admin`, `chef_chaine`, utilisateur)
-- Gestion des employés, opérations, commandes et présences
-- Saisie, consultation et suivi des productions
-- Calcul du rendement individuel et collectif à partir du temps standard SAM
-- Classement des performances par employé, ligne ou atelier
-- Fiches suiveuses numériques pour les articles en production
-- Paniers de production identifiés par code-barres et QR code
-- Historique complet des mouvements et de la traçabilité
-- Alertes automatiques sur les anomalies de production
-- Rapports exportables en PDF et Excel
-- Documentation interactive de l'API avec Swagger
-
-## Stack technique
-
-| Couche | Technologies |
+| Layer | Technology |
 | --- | --- |
-| Frontend | React 18, Vite, Tailwind CSS, Recharts, Axios |
-| Backend | Node.js, Express, JWT, Swagger |
-| Base de données | Microsoft SQL Server |
-| Documents | PDFKit, ExcelJS, QRCode, bwip-js |
+| Frontend | React, Vite, Tailwind CSS |
+| Backend | Node.js, Express |
+| Data | SQL Server |
+| Tooling | Swagger, Jest, ESLint, GitHub Actions |
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    Browser[Interface React] --> Router[React Router]
-    Router --> API[Client Axios]
-    API --> Express[API REST Node.js / Express]
-    Express --> Auth[Authentification JWT]
-    Express --> MES[Services métier MES]
-    MES --> SQL[(SQL Server)]
-    Express --> Docs[Swagger]
-    MES --> Documents[PDF, Excel, QR et codes-barres]
+    UI[React application] --> API[Express REST API]
+    API --> MES[MES business services]
+    MES --> DB[(SQL Server)]
+    API --> Docs[PDF, Excel, QR, and barcodes]
 ```
 
-Cette architecture correspond au code publié dans ce dépôt. Elle ne contient
-pas de composant C#/.NET ou Python.
+The repository contains JavaScript/Node.js and React components; it does not
+contain a C#/.NET or Python service.
 
-```text
-production/
-├── backend/
-│   ├── config/          # Connexion SQL Server
-│   ├── controllers/     # Logique des endpoints
-│   ├── database/        # Création et évolution du schéma
-│   ├── middleware/      # Authentification et gestion des erreurs
-│   ├── routes/          # Routes REST
-│   ├── services/        # Logique métier MES
-│   ├── test/            # Tests des calculs métier
-│   └── server.js        # Point d'entrée de l'API
-└── frontend/
-    └── src/
-        ├── components/  # Composants réutilisables
-        ├── context/     # État d'authentification
-        ├── pages/       # Écrans de l'application
-        └── services/    # Client HTTP
-```
+## Local setup
 
-## Installation
-
-### Prérequis
-
-- Node.js 18 ou supérieur
-- Microsoft SQL Server
-- npm
-
-### 1. Cloner le dépôt
+Prerequisites: Node.js 20, npm, and SQL Server.
 
 ```bash
 git clone https://github.com/KhaledZouari/production-atelier.git
-cd production-atelier
-```
-
-### 2. Configurer et lancer l'API
-
-```bash
-cd backend
+cd production-atelier/backend
 npm install
 cp .env.example .env
 npm run seed
 npm run dev
 ```
 
-Sous PowerShell, utilisez `Copy-Item .env.example .env` à la place de `cp`.
-
-Adaptez ensuite `backend/.env` à votre instance SQL Server. Au démarrage, l'API vérifie et initialise les tables nécessaires. Elle est disponible par défaut sur `http://localhost:4000` et sa documentation Swagger sur `http://localhost:4000/api/docs`.
-
-### 3. Lancer l'interface
-
-Dans un second terminal :
+In a second terminal:
 
 ```bash
-cd frontend
+cd production-atelier/frontend
 npm install
 npm run dev
 ```
 
-L'interface est alors accessible sur `http://localhost:5173`.
+On PowerShell, replace `cp` with `Copy-Item`. Configure `backend/.env` for
+your SQL Server instance. Swagger is available at `/api/docs`.
 
-## Configuration
-
-Variables prises en charge dans `backend/.env` :
-
-| Variable | Description | Exemple |
-| --- | --- | --- |
-| `SQL_HOST` | Hôte SQL Server | `localhost` |
-| `SQL_INSTANCE` | Instance nommée, si utilisée | `SQLEXPRESS` |
-| `SQL_PORT` | Port SQL, alternative à l'instance | `1433` |
-| `SQL_USER` | Utilisateur SQL | `sa` |
-| `SQL_PASSWORD` | Mot de passe SQL | `votre_mot_de_passe` |
-| `SQL_DB` | Nom de la base | `production_atelier` |
-| `SQL_TRUSTED` | Active l'authentification Windows | `false` |
-| `JWT_SECRET` | Clé de signature des jetons | une valeur longue et aléatoire |
-| `PORT` | Port de l'API | `4000` |
-
-Le frontend utilise `VITE_API_URL` si l'API n'est pas exposée sous `/api` sur le même domaine.
-
-## Scripts utiles
-
-```bash
-# Backend
-npm run dev           # API avec rechargement automatique
-npm start             # API en mode standard
-npm test              # Tests des calculs métier
-npm run seed          # Données initiales
-npm run seed:mes-demo # Jeu de démonstration MES
-
-# Frontend
-npm run dev           # Serveur de développement
-npm run build         # Build de production
-npm run preview       # Prévisualisation du build
-```
-
-## API
-
-Les principales ressources sont exposées sous `/api` : authentification, employés, opérations, productions, commandes, présences et rapports. Le module MES est disponible sous `/api/mes` avec les ressources de rendement, fiches suiveuses, paniers, traces, alertes et tableaux de bord.
-
-La liste complète et testable des endpoints est disponible dans Swagger après le lancement du backend.
-
-## Tests et qualité
+## Verification
 
 ```bash
 cd backend && npm run lint && npm test
 cd ../frontend && npm run lint && npm run build
 ```
 
-La CI reproduit ces contrôles avec Node.js 20 sur chaque pull request et chaque
-push vers `main`. Les tests backend couvrent les calculs de rendement, de temps
-travaillé, d’écarts et les cas limites numériques du module MES.
+Backend tests cover MES performance, worked-time, variance, and numeric
+edge-case calculations. CI repeats the checks with Node.js 20.
 
-## Choix techniques
+## Engineering decisions
 
-- Les services MES isolent les calculs et règles de suivi des contrôleurs HTTP,
-  ce qui permet de tester la logique sans démarrer l’API.
-- SQL Server est conservé comme source relationnelle unique pour les données
-  d’atelier et la traçabilité ; les repositories centralisent les requêtes MES.
-- JWT protège une SPA sans session serveur, avec des autorisations vérifiées par
-  rôle dans le middleware.
-- QR codes et codes-barres représentent le même identifiant de panier afin de
-  permettre la lecture par caméra ou scanner sans dupliquer la donnée métier.
+- Business calculations are isolated from HTTP controllers.
+- Repositories centralize MES queries.
+- Configuration and secrets stay outside the repository.
+- Screenshots must use fictional or anonymized production data.
 
-## Captures d’écran
+## License
 
-Les captures seront ajoutées dans `docs/screenshots/` sans données réelles de
-l’entreprise :
-
-- `dashboard.png` — indicateurs et graphiques du tableau de bord ;
-- `productions.png` — saisie et suivi des productions ;
-- `traceabilite-paniers.png` — paniers, QR codes et codes-barres ;
-- `rendement-mes.png` — calcul et classement des rendements MES.
-
-Seules des données de démonstration fictives doivent apparaître dans ces
-illustrations.
-
-## Limites connues et pistes d’amélioration
-
-- Les tests automatisés ciblent les calculs métier ; les routes HTTP et la
-  persistance SQL nécessitent encore des tests d’intégration.
-- Le frontend ne possède pas encore de tests de composants ou de parcours.
-- Quatre vulnérabilités frontend et six vulnérabilités backend restent liées à
-  des migrations majeures de Vite, React Router, MSSQL et ExcelJS ; elles ne
-  sont pas corrigées automatiquement pour éviter une régression non testée.
-- Le chargement initial du frontend peut être réduit par découpage des routes.
-
-## Auteur
-
-Développé par [Khaled Zouari](https://github.com/KhaledZouari).
+Distributed under the MIT License. See [LICENSE](LICENSE).
 
