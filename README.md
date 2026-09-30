@@ -1,5 +1,8 @@
 # Production Atelier
 
+[![CI](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml/badge.svg)](https://github.com/KhaledZouari/production-atelier/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
+
 A full-stack production management platform for textile workshops. It combines
 operational workflows with a Manufacturing Execution System (MES) layer for
 real-time tracking, performance measurement, and item traceability.
