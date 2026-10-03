@@ -59,8 +59,8 @@ npm install
 npm run dev
 ```
 
-On PowerShell, replace `cp` with `Copy-Item`. Configure `backend/.env` for
-your SQL Server instance. Swagger is available at `/api/docs`.
+On PowerShell, replace `cp` with `Copy-Item`. Configure `backend/.env` for your
+SQL Server instance. Swagger is available at `/api/docs`.
 
 ## Verification
 
@@ -69,8 +69,8 @@ cd backend && npm run lint && npm test
 cd ../frontend && npm run lint && npm run build
 ```
 
-Backend tests cover MES performance, worked-time, variance, and numeric
-edge-case calculations. CI repeats the checks with Node.js 20.
+Backend tests cover MES performance, worked-time, variance, and numeric edge-
+case calculations. CI repeats the checks with Node.js 20.
 
 ## Engineering decisions
 
@@ -79,7 +79,60 @@ edge-case calculations. CI repeats the checks with Node.js 20.
 - Configuration and secrets stay outside the repository.
 - Screenshots must use fictional or anonymized production data.
 
+## Business context and engineering approach
+
+### Textile workshop execution
+
+A supervisor needs to connect manufacturing orders, employee activity and item
+traceability. This application brings those workflows into a React interface
+backed by an Express API and SQL Server. Its MES services calculate efficiency
+and track baskets and production sheets.
+
+Business calculations belong in services rather than UI components. Repository-
+level SQL access separates persistence from HTTP handling; JWT authentication
+gates the operational screens.
+
+## Application screenshots
+
+Captured from the running application on 3 October 2026.
+
+### MES overview
+
+![MES overview](docs/screenshots/mes-overview.png)
+
+Workshop indicators and operational monitoring.
+
+### Production traceability
+
+![Production traceability](docs/screenshots/tracking-sheets.png)
+
+Tracking sheets connect orders, operations and production flow.
+
+### Basket tracking
+
+![Basket tracking](docs/screenshots/baskets.png)
+
+Basket status and quantities support work-in-progress supervision.
+
+### Capture environment
+
+The demonstration uses a separate local SQL Server database, six fictional
+workers, three tracking sheets and 91 baskets. The MES seed contains activity
+dated 9 June 2026; that date is selected in the dashboard. Local capture access
+used a Windows ODBC adapter; the repository setup documents its SQL-login
+connection configuration.
+
+The frontend now includes the missing PostCSS configuration so Vite processes
+the existing Tailwind directives and layout utilities. Lint completed with zero
+errors and five existing warnings; the production build succeeded.
+
+## Evidence and current scope
+
+Efficiency values are demonstration calculations; the TRS label is not evidence
+of a validated standard OEE calculation. Screenshots are local demonstration
+runs, not evidence of production deployment, factory productivity gains or a
+complete security audit.
+
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE).
-

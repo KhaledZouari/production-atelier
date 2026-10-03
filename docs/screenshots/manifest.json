@@ -1,0 +1,24 @@
+{
+  "captured_on": "2026-10-03",
+  "kind": "runtime screenshots",
+  "images": [
+    {
+      "file": "mes-overview.png",
+      "width": 1600,
+      "height": 1050,
+      "sha256": "a982ca51abd8f8dc22c132de6f91ab9e505295097ccc10ef8cf2061e33e3aaac"
+    },
+    {
+      "file": "tracking-sheets.png",
+      "width": 1600,
+      "height": 1050,
+      "sha256": "088c711f64a7f9120de509bd1b548f0cb836c49a5ad8f9bb16adefd909d6dc2a"
+    },
+    {
+      "file": "baskets.png",
+      "width": 1600,
+      "height": 1050,
+      "sha256": "5a447036172317ec25ef2d7b01f8e4277f2fa65be1f038ab83d0cab05e161d77"
+    }
+  ]
+}
